@@ -486,6 +486,8 @@ contains
      ! !DESCRIPTION:
      ! Compute canopy interception and throughfall for bulk water
      !
+     ! USES:
+     use pftconMod, only : nbrdlf_evr_trp_tree
      ! !ARGUMENTS:
      type(bounds_type), intent(in) :: bounds
      integer, intent(in) :: num_nolakep
@@ -539,7 +541,10 @@ contains
            end if
 
            fpisnow = (1._r8 - exp(-0.5_r8*(elai(p) + esai(p))))  ! max interception of 1
-
+           if (patch%itype(p) == nbrdlf_evr_trp_tree) then
+            fpiliq = 1.0_r8*(1._r8 - exp(-0.5_r8*(elai(p) + esai(p))))
+            fpisnow = 1.0_r8*(1._r8 - exp(-0.5_r8*(elai(p) + esai(p))))
+           end if
            ! Direct throughfall
            qflx_through_snow(p) = forc_snow(p) * (1._r8-fpisnow)
            qflx_through_liq(p)  = qflx_liq_above_canopy(p) * (1._r8-fpiliq)
