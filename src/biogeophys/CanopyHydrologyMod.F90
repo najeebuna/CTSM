@@ -33,6 +33,7 @@ module CanopyHydrologyMod
   use WaterTracerUtils        , only : CalcTracerFromBulk
   use ColumnType      , only : col, column_type
   use PatchType       , only : patch, patch_type
+  use pftconMod       , only : nbrdlf_evr_trp_tree
   !
   ! !PUBLIC TYPES:
   implicit none
